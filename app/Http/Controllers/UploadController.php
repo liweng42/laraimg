@@ -31,20 +31,21 @@ class UploadController extends Controller
         $accessId = $request['accessId'];
         $accessKey = $request['accessKey'];
         $destPath = $request['destPath'];
+        return response()->json(['code' => '200','msg' => 'success', 'accessId' => $accessId ]);
         
-        if (!$this->checkAccessIdAndKey($accessId, $accessKey)){
-            return response()->json(['code' => '401','msg' => '$accessKey error.']);
-        }
-        else {
-            //校验目录以及不存在创建
-            $path = public_path($destPath);
-            File::isDirectory($path) or mkdir(iconv("UTF-8", "GBK", $path), 0777, true); 
+        // if (!$this->checkAccessIdAndKey($accessId, $accessKey)){
+        //     return response()->json(['code' => '401','msg' => '$accessKey error.']);
+        // }
+        // else {
+        //     //校验目录以及不存在创建
+        //     $path = public_path($destPath);
+        //     File::isDirectory($path) or mkdir(iconv("UTF-8", "GBK", $path), 0777, true); 
             
-            $imageName = $request->file->getClientOriginalName();     
-            $request->file->move($path, $imageName);
-            $imgUrl = URL::to($destPath, $imageName,true);
-            return response()->json(['code' => '200','msg' => 'success', 'uploaded' => $imgUrl ]);
-        }
+        //     $imageName = $request->file->getClientOriginalName();     
+        //     $request->file->move($path, $imageName);
+        //     $imgUrl = URL::to($destPath, $imageName,true);
+        //     return response()->json(['code' => '200','msg' => 'success', 'uploaded' => $imgUrl ]);
+        // }
     }
 
     public function checkAccessIdAndKey($accessId, $accessKey)

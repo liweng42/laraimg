@@ -24,6 +24,9 @@ class HomeController extends Controller
     public function index()
     {
         session(['status' => public_path()]);
-        return view('home.index');
+        $homeData = [
+            'hello' => 'hello',
+        ];
+        return view('home.index', $homeData);
     }
 }

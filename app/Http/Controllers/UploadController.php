@@ -12,8 +12,13 @@ class UploadController extends Controller
 {
     //
     private $resource_path = 'upload';
-    private $accessId = '1';
-    private $accessKey = 'abc';
+    private $accessId;
+    private $accessKey;
+
+    public function __construct(){
+        $this->accessId = config('accessauth.accessId');
+        $this->accessKey = config('accessauth.accessKey');
+    }
 
     public function index(){
         return view('upload.index',

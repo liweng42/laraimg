@@ -20,5 +20,5 @@ Route::get('/', 'HomeController@index');
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('/upload', 'UploadController@index');
-Route::post('/upload', 'UploadController@uploadFile')->name('upload');
+Route::post('/upload', 'UploadController@upload')->name('upload');
 

@@ -27,7 +27,7 @@ class UploadController extends Controller
         ]);
     }
 
-    public function uploadFile(Request $request){
+    public function upload(Request $request){
         $accessId = $request['accessId'];
         $accessKey = $request['accessKey'];
         $destPath = $request['destPath'];

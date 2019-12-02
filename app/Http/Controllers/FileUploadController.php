@@ -8,10 +8,9 @@ use Illuminate\Support\Facades\File;
 
 
 
-class UploadController extends Controller
+class FileUploadController extends Controller
 {
     //
-    private $resource_path = 'upload';
     private $accessId;
     private $accessKey;
     private $allowedfileExtension;

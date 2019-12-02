@@ -11,5 +11,6 @@ return [
     |
     */    
  'accessId' => "yKr6a8XifzM9eYPs",
- 'accessKey' => "JpQxByjX1xFMuM96A4rgupvHxBx6QkVF"
+ 'accessKey' => "JpQxByjX1xFMuM96A4rgupvHxBx6QkVF",
+ 'allowedfileExtension' => ['jpg','png','jpeg','gif']
 ];

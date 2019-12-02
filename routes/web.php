@@ -19,6 +19,13 @@ Auth::routes();
 Route::get('/', 'HomeController@index');
 Route::get('/home', 'HomeController@index')->name('home');
 
+Route::get('/test', 'TestController@index');
+Route::post('/test', 'TestController@post');
+
 Route::get('/upload', 'UploadController@index');
 Route::post('/upload', 'UploadController@upload')->name('upload');
+
+
+// Route::get('file','FileController@create');
+// Route::post('file','FileController@store');
 

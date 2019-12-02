@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Laravel Uploading</title>
+    <title>多图片上传</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <!-- Optional theme -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
@@ -30,14 +30,14 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-2"> <img src="/32114.svg" width="80" /></div>
-                <div class="col-md-8"><h2>Laravel Multiple File Uploading With Bootstrap Form</h2>
+                <div class="col-md-8"><h2>多图片上传</h2>
                 </div>
             </div>
             <br>
             <div class="row">
             <div class="col-md-3"></div>
             <div class="col-md-6">
-                <form action="/upload" method="post" enctype="multipart/form-data">
+            <form action="{{ route('upload') }}" method="post" enctype="multipart/form-data">
                     
                     <div class="form-group">
                         <label for="accessId">accessId</label>
@@ -51,7 +51,7 @@
                         <label for="destPath">destPath</label>
                         <input type="text" name="destPath" class="form-control"  placeholder="destPath" >
                     </div>                                        
-                    <label for="destPath">Product photos (can attach more than one):</label>
+                    <label for="destPath">图片文件（可以选择多个）</label>
                     <br />
                     <input type="file" class="form-control" name="photos[]" multiple />
                     <br /><br />

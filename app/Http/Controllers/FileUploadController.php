@@ -48,6 +48,7 @@ class FileUploadController extends Controller
             }
             //校验参数合法性，自动带上 / 前缀
             $destPath = '/' . ltrim($destPath, '/');
+            $destPath = dirname($destPath);
             $imgUrls = array();
             if (!$this->checkAccessIdAndKey($accessId, $accessKey)){
                 return response()->json(['code' => '401','msg' => 'accessKey error.']);

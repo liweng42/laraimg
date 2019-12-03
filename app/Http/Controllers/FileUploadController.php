@@ -42,10 +42,19 @@ class FileUploadController extends Controller
             $accessKey = $request->accessKey;
             //destPath 需要带 / 前缀，指向上传文件的根目录
             $destPath = $request->destPath;
+            //默认是不产生新文件名，不传值认为是false
+            if ($request->generateNewFileName) {
+                $generateNewFileName = $request->generateNewFileName;
+            }
+            else {
+                $generateNewFileName = false;
+            }
+            //校验参数合法性，自动带上 / 前缀
+            $destPath = '/' . ltrim($destPath, '/');
             $imgUrls = array();
             if (!$this->checkAccessIdAndKey($accessId, $accessKey)){
                 return response()->json(['code' => '401','msg' => 'accessKey error.']);
-            }
+            }        
             else {
                 if($request->hasFile('photos')){
                     $files = $request->file('photos');
@@ -61,7 +70,14 @@ class FileUploadController extends Controller
                                 $path = $this->uploadRootPath.$destPath;
                                 // dd($path);
                                 File::isDirectory($path) or mkdir(iconv("UTF-8", "GBK", $path), 0777, true); 
-                                $imageName = $photo->getClientOriginalName();     
+                               
+                                if ($generateNewFileName == 'true') {
+                                    $imageName = md5($filename.uniqid(mt_rand().microtime(true),true)).'.'.$extension;
+                                }
+                                else {
+                                    $imageName = $photo->getClientOriginalName();     
+                                }
+                                
                                 $photo->move($path, $imageName);
                                 $imgUrl = URL::to($destPath, $imageName,true);        
                                 $imgUrls[] = $imgUrl;                                                     

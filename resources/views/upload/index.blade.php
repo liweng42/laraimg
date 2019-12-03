@@ -37,8 +37,7 @@
             <div class="row">
             <div class="col-md-3"></div>
             <div class="col-md-6">
-            <form action="{{ route('upload') }}" method="post" enctype="multipart/form-data">
-                    
+            <form action="{{ route('file_upload') }}" method="post" enctype="multipart/form-data">                    
                     <div class="form-group">
                         <label for="accessId">accessId</label>
                         <input type="text" name="accessId" class="form-control"  placeholder="accessId" >
@@ -50,7 +49,11 @@
                     <div class="form-group">
                         <label for="destPath">destPath</label>
                         <input type="text" name="destPath" class="form-control"  placeholder="destPath" >
-                    </div>                                        
+                    </div>
+                    <div class="form-group">
+                        <label for="generateNewFileName">generateNewFileName</label>
+                        <input type="text" name="generateNewFileName" class="form-control"  placeholder="generateNewFileName: true or false" >
+                    </div>                    
                     <label for="destPath">图片文件（可以选择多个）</label>
                     <br />
                     <input type="file" class="form-control" name="photos[]" multiple />

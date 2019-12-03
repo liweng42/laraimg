@@ -23,7 +23,7 @@ Route::get('/test', 'TestController@index');
 Route::post('/test', 'TestController@post');
 
 Route::get('/file_upload', 'FileUploadController@index');
-Route::post('/file_upload', 'FileUploadController@upload')->name('upload');
+Route::post('/file_upload', 'FileUploadController@upload')->name('file_upload');
 
 
 // Route::get('file','FileController@create');

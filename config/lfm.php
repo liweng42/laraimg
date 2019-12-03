@@ -46,9 +46,9 @@ return [
     'base_directory' => 'public',
 
     'images_folder_name' => 'photos',
-    'files_folder_name'  => 'files',
+    'files_folder_name'  => '',
 
-    'shared_folder_name' => 'shared',
+    'shared_folder_name' => '',
     'thumb_folder_name'  => 'thumbs',
 
     /*

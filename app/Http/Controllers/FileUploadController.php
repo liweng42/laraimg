@@ -20,9 +20,7 @@ class FileUploadController extends Controller
         $this->accessId = config('accessauth.accessId');
         $this->accessKey = config('accessauth.accessKey');
         $this->allowedfileExtension = config('accessauth.allowedfileExtension');
-        //项目的上传根目录在 /public/storage 目录，该目录可以为一个软连接
-        //上传文件的根目录是在 /storage/app/public，然后 执行 php artistan storage:link 会在/public目录下创建一个软连接 storage，指向根目录
-        $this->uploadRootPath = public_path('storage');
+        $this->uploadRootPath = config('accessauth.uploadRootPath');    
     }
 
     public function index(){
@@ -64,8 +62,9 @@ class FileUploadController extends Controller
                         //dd($check);
                         if($check){
                             foreach ($request->photos as $photo) {
-                                //校验目录以及不存在创建，                                
-                                $path = $this->uploadRootPath.$destPath;
+                                //校验目录以及不存在创建，上传的服务器真实路径
+                                $realPath = public_path($this->uploadRootPath);                            
+                                $path = $realPath.$destPath;
                                 // dd($path);
                                 File::isDirectory($path) or mkdir(iconv("UTF-8", "GBK", $path), 0777, true); 
                                
@@ -77,7 +76,8 @@ class FileUploadController extends Controller
                                 }
                                 
                                 $photo->move($path, $imageName);
-                                $imgUrl = URL::to($destPath, $imageName,true);        
+                                $url = $this->uploadRootPath.$destPath;
+                                $imgUrl = URL::to($url, $imageName,true);        
                                 $imgUrls[] = $imgUrl;                                                     
                             }
                             return response()->json(['code' => '200','msg' => 'success', 'uploaded' => $imgUrls ]);     

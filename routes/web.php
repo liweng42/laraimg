@@ -26,6 +26,4 @@ Route::get('/file_upload', 'FileUploadController@index');
 Route::post('/file_upload', 'FileUploadController@upload')->name('file_upload');
 
 
-// Route::get('file','FileController@create');
-// Route::post('file','FileController@store');
 

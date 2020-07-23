@@ -29,8 +29,8 @@
         @endif
         <div class="container">
             <div class="row">
-                <div class="col-md-2"> <img src="/32114.svg" width="80" /></div>
-                <div class="col-md-8"><h2>多图片上传</h2>
+                <div class="col-md-2"></div>
+                <div class="col-md-8"><h2>多文件上传</h2>
                 </div>
             </div>
             <br>
@@ -54,7 +54,7 @@
                         <label for="generateNewFileName">generateNewFileName</label>
                         <input type="text" name="generateNewFileName" class="form-control"  placeholder="generateNewFileName: true or false" >
                     </div>                    
-                    <label for="destPath">图片文件（可以选择多个）</label>
+                    <label for="destPath">选择文件（可以选择多个）</label>
                     <br />
                     <input type="file" class="form-control" name="photos[]" multiple />
                     <br /><br />

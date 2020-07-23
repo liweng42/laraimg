@@ -24,6 +24,8 @@ Route::post('/test', 'TestController@post');
 
 Route::get('/file_upload', 'FileUploadController@index');
 Route::post('/file_upload', 'FileUploadController@upload')->name('file_upload');
+Route::get('/img_upload', 'FileUploadController@img');
+Route::post('/img_upload', 'FileUploadController@imgUpload')->name('img_upload');
 
 
 

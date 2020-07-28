@@ -135,6 +135,6 @@ var uploadSucceed = function(urls){
 		str += "![]("+ urls[j]  +")" + "<br/>";		
 	}
 	// $(".imgmarkdown").find("b").text();		
-	$(".imgmarkdown").append('<span>markdown：</span>'+str);
+	$(".imgmarkdown").append(str);
     
 }

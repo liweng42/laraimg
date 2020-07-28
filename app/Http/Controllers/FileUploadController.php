@@ -63,75 +63,51 @@ class FileUploadController extends Controller
                 $files = $request->file('photos');
                 if (is_array($files)) {                    
                     foreach($files as $file){
-                        $filename = $file->getClientOriginalName();       
-                        Log::info('filename: '. $filename);             
-                        $extension = $file->getClientOriginalExtension();
-                        $check=in_array($extension, $this->allowedfileExtension);
-                        //dd($check);
-                        if($check){
-                            foreach ($request->photos as $photo) {
-                                //校验目录以及不存在创建，上传的服务器真实路径
-                                $realPath = public_path($this->uploadRootPath);                            
-                                $path = $realPath.$destPath;
-                                Log::info('path: '. $path);
-                                File::isDirectory($path) or mkdir(iconv("UTF-8", "GBK", $path), 0777, true); 
-                                
-                                if ($generateNewFileName == 'true') {
-                                    $imageName = md5($filename.uniqid(mt_rand().microtime(true),true)).'.'.$extension;
-                                }
-                                else {
-                                    $imageName = $photo->getClientOriginalName();     
-                                }
-                                
-                                $photo->move($path, $imageName);
-                                $url = $this->uploadRootPath.$destPath;
-                                $imgUrl = URL::to($url, $imageName,true);        
-                                $imgUrls[] = $imgUrl;                                                     
-                            }
-                            return response()->json(['code' => '200','msg' => 'success', 'uploaded' => $imgUrls ]);     
-                        }
-                        else{
-                            return response()->json(['code' => '403','msg' => 'forbidden, only for '. implode(',', $this->allowedfileExtension) ]);    
-                        }
+                        $imgUrls[] = $this->moveToFile($file, $destPath, $generateNewFileName);
                     }
+                    return response()->json(['code' => '200','msg' => 'success', 'uploaded' => $imgUrls ]);  
                 }
                 else {
                     $file = $request->file('photos');
                     Log::info('file: '.$file);
-                    $filename = $file->getClientOriginalName();       
-                    Log::info('filename: '. $filename);             
-                    $extension = $file->getClientOriginalExtension();
-                    $check=in_array($extension, $this->allowedfileExtension);
-                    //dd($check);
-                    if($check){
-
-                        //校验目录以及不存在创建，上传的服务器真实路径
-                        $realPath = public_path($this->uploadRootPath);                            
-                        $path = $realPath.$destPath;
-                        Log::info('path: '. $path);
-                        File::isDirectory($path) or mkdir(iconv("UTF-8", "GBK", $path), 0777, true); 
-                        
-                        if ($generateNewFileName == 'true') {
-                            $imageName = md5($filename.uniqid(mt_rand().microtime(true),true)).'.'.$extension;
-                        }
-                        else {
-                            $imageName = $file->getClientOriginalName();     
-                        }
-                        
-                        $file->move($path, $imageName);
-                        $url = $this->uploadRootPath.$destPath;
-                        $imgUrl = URL::to($url, $imageName,true);        
-
-                        Log::info('imgUrl: '. $imgUrl);
-                        $imgUrls[] = $imgUrl;      
-                        return response()->json(['code' => '200','msg' => 'success', 'uploaded' => $imgUrls ]);     
-                    }
-                    else{
-                        return response()->json(['code' => '403','msg' => 'forbidden, only for '. implode(',', $this->allowedfileExtension) ]);    
-                    }                    
+                    $imgUrls[] = $this->moveToFile($file, $destPath, $generateNewFileName);
+                    return response()->json(['code' => '200','msg' => 'success', 'uploaded' => $imgUrls ]);  
                 }
             }
         }        
+    }
+
+    private function moveToFile($file, $destPath, $generateNewFileName){
+        $filename = $file->getClientOriginalName();       
+        Log::info('filename: '. $filename);             
+        $extension = $file->getClientOriginalExtension();
+        $check=in_array($extension, $this->allowedfileExtension);
+        //dd($check);
+        if($check){
+            //校验目录以及不存在创建，上传的服务器真实路径
+            $realPath = public_path($this->uploadRootPath);                            
+            $path = $realPath.$destPath;
+            Log::info('path: '. $path);
+            File::isDirectory($path) or mkdir(iconv("UTF-8", "GBK", $path), 0777, true); 
+            
+            if ($generateNewFileName == 'true') {
+                $imageName = md5($filename.uniqid(mt_rand().microtime(true),true)).'.'.$extension;
+            }
+            else {
+                $imageName = $file->getClientOriginalName();     
+            }
+            
+            $file->move($path, $imageName);
+            $url = $this->uploadRootPath.$destPath;
+            $imgUrl = URL::to($url, $imageName, true);        
+
+            Log::info('imgUrl: '. $imgUrl);    
+            return $imgUrl;
+        }
+        else{
+            //扩展名限制不允许上传
+            // return response()->json(['code' => '403','msg' => 'forbidden, only for '. implode(',', $this->allowedfileExtension) ]);       
+        }              
     }
 
     public function checkAccessIdAndKey($accessId, $accessKey)

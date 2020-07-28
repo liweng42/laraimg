@@ -35,9 +35,6 @@
 
         <div class="succeed">
             <!--<div class="message">上传成功</div>-->
-            <div class="imgname row"><span>图片名称：</span><b></b></div>
-            <div class="imgurl row"><span>图片地址：</span><b></b></div>
-            <div class="imghtml row"><span>html：</span><b></b></div>
             <div class="imgmarkdown row"></div>
         </div>
 
